@@ -3,8 +3,9 @@ import os
 
 from dotenv import load_dotenv
 
-from src.BlockchainAPIsRunner import BlockchainAPIsRunner
 from src.NodeRunner import NodeRunner
+from src.BlockchainAPIsRunner import BlockchainAPIsRunner
+from src.BlockchainAPIsSyncRunner import BlockchainAPIsSyncRunner
 from src.utils import load_config
 
 
@@ -20,11 +21,17 @@ async def main():
                                                   config["blockchain-apis-config"]["blockchain-id"],
                                                   config["blockchain-apis-config"]["exchange-id"],
                                                   os.getenv("BLOCKCHAIN_APIS_KEY"))
+    blockchain_apis_sync_runner = BlockchainAPIsSyncRunner(config["token-owned"],
+                                                           config["common"]["weth-address"],
+                                                           config["blockchain-apis-config"]["blockchain-id"],
+                                                           config["blockchain-apis-config"]["exchange-id"],
+                                                           os.getenv("BLOCKCHAIN_APIS_KEY"))
 
     time_spent_node = await node_runner.time_run()
     time_spend_blockchain_apis = await blockchain_apis_runner.time_run()
+    time_spend_blockchain_apis_sync = await blockchain_apis_sync_runner.time_run()
 
-    print(f"Ethereum node: {time_spent_node} seconds\nBlockchain APIs: {time_spend_blockchain_apis} seconds")
+    print(f"Ethereum node: {time_spent_node} seconds\nBlockchain APIs: {time_spend_blockchain_apis} seconds\nBlockchain APIs Sync: {time_spend_blockchain_apis_sync} seconds")
 
 if __name__ == "__main__":
     asyncio.run(main())
