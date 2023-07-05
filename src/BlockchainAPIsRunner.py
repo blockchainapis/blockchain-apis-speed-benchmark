@@ -46,7 +46,7 @@ class BlockchainAPIsRunner(Runner):
         async with BlockchainAPIs(self._blockchain_apis_key) as blockchain_apis:
             for token in tokens_to_do:
                 tasks.append(asyncio.create_task(self.run_one(blockchain_apis, token)))
-        result = await asyncio.gather(*tasks)
+            result = await asyncio.gather(*tasks)
         return (
             tokens_to_do,
             [self._token_balances[token] for token in tokens_to_do],

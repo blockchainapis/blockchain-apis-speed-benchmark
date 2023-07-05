@@ -100,4 +100,4 @@ blockchain-apis-config:
   blockchain-id: "ethereum"
   # The id of the exchange, you can get the list of valid exchange ids using
   # this API call: https://api.blockchainapis.io/docs#/exchanges/exchanges_v0_exchanges__get
-  exchange-id: "uniswapv2-ethereum"
+  exchange-id: "uniswapv2_ethereum"
