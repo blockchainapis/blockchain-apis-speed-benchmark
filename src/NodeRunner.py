@@ -3,7 +3,7 @@ import os
 import time
 
 from concurrent.futures import ThreadPoolExecutor
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, List, Tuple
 
 from web3 import Web3
 from tqdm import tqdm
@@ -71,12 +71,12 @@ class NodeRunner(Runner):
         amount_out = self._router_caller.getAmountOut(self._token_balances[token_address], reserve_in, reserve_out)
         return amount_out, time.time() - start
 
-    async def run(self):
+    async def run(self) -> Tuple[List[str], List[int], List[int], List[float]]:
         tokens_to_do = list(self._token_balances.keys())
         with ThreadPoolExecutor() as executor:
             returned_balances = list(tqdm(executor.map(self._get_selling_result, tokens_to_do), total=len(tokens_to_do)))
 
-        self.write_result(
+        return (
             tokens_to_do,
             [self._token_balances[token] for token in tokens_to_do],
             [returned_balances[i][0] for i in range(len(tokens_to_do))],

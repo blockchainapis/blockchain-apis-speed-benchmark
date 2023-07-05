@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
+import csv
+from decimal import Decimal
 import time
-from typing import List
+from typing import List, Tuple
 
 
 class Runner(ABC):
@@ -22,12 +24,44 @@ class Runner(ABC):
         :param duration: The amount of seconds that we took to handle the token
         :type duration: float
         """
+        to_write = []
+        total_amount_out = Decimal(0)
+        for i in range(len(token)):
+            total_amount_out += Decimal(amounts_out[i]) / Decimal(10**18)
+            to_write.append([
+                token[i],
+                amounts_in[i],
+                Decimal(amounts_out[i]) / Decimal(10**18),
+                duration[i]
+            ])
+
+        to_write.append(["", "", "", ""])
+        to_write.append(["", "Total Amount out:", total_amount_out])
+        to_write.append(["", "Average duration:", sum(duration) / len(duration)])
+
+        with open("dest_blockchain.csv", "w+") as f:
+            writer = csv.writer(f)
+            writer.writerow([
+                "Token Address",
+                "Amount in",
+                "Amount out",
+                "Duration"
+            ])
+            writer.writerows(to_write)
+            
 
     @abstractmethod
-    async def run(self):
+    async def run(self) -> Tuple[List[str], List[int], List[int], List[float]]:
         """Run the API calls and write the results inside of a CSV file.
         
         You implement the API call that you want to time in here.
+        
+        :returns: A tuple containing the call parameters for write_result:
+                  - At first the list containing the address of the token
+                  - At second the list of amount_in
+                  - At third the list of amount out
+                  - At 4th the duration of the call
+        :rtype: Tuple[List[str], List[int], List[int], List[float]]
         """
 
     async def time_run(self) -> float:
@@ -37,5 +71,7 @@ class Runner(ABC):
         :rtype: float
         """
         start = time.time()
-        await self.run()
-        return time.time() - start
+        result = await self.run()
+        duration = time.time() - start
+        self.write_result(result[0], result[1], result[2], result[3])
+        return duration
