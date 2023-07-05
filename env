@@ -1,2 +1,5 @@
 # The http rpc node that you use to interact with the Blockchain
 HTTP_RPC = "<Put your HTTP rpc url here>"
+# Your Blockchain APIs key,
+# you can get a key for free at: https://dashboard.blockchainapis.io/
+BLOCKCHAIN_APIS_KEY = "<Put you BlockchainAPIs key here>"

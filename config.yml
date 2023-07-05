@@ -93,3 +93,11 @@ node-config:
   # You can change this to sushiswap for example if you want to get
   # the amount out in Sushiswap
   router-address: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+# Configs for the Blockchain APIs run
+blockchain-apis-config:
+  # The id of the blockchain, you can get the list of valid blockchain ids
+  # using this API call: https://api.blockchainapis.io/docs#/blockchains/blockchains_v0_blockchains__get
+  blockchain-id: "ethereum"
+  # The id of the exchange, you can get the list of valid exchange ids using
+  # this API call: https://api.blockchainapis.io/docs#/exchanges/exchanges_v0_exchanges__get
+  exchange-id: "uniswapv2-ethereum"
