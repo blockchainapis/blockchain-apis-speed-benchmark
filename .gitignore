@@ -3,3 +3,4 @@ secret_*
 venv
 __pycache__
 .venv
+*.csv
