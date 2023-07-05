@@ -8,6 +8,12 @@ We use [web3.py](https://pypi.org/project/web3/) for the Python client and [bloc
 
 During the test, we simulate the selling of every token of a wallet in exchange of Ethereum.
 
+## Limits
+
+The program runs succesfuly only when there is a pair that exists between WETH and the token given in configs.
+
+If the token is not paired with WETH, an exception is thrown
+
 ## How to run
 
 You can edit the file "config.yml" by adding your tokens.
