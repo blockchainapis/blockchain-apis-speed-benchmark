@@ -1,3 +1,7 @@
+import yaml
+
+from yaml.loader import SafeLoader
+
 from src.Types import Config
 
 
@@ -11,5 +15,6 @@ def load_config(path: str) -> Config:
     :return: The Config file
     :rtype: Config
     """
-    pass
+    with open(path, "r") as f:
+        return yaml.load(f, Loader=SafeLoader)
 
