@@ -1,0 +1,2 @@
+# The http rpc node that you use to interact with the Blockchain
+HTTP_RPC = "<Put your HTTP rpc url here>"

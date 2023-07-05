@@ -11,6 +11,7 @@ During the test, we simulate the selling of every token of a wallet in exchange 
 ## How to run
 
 You can edit the file "config.yml" by adding your tokens.
+You also must edit the .env file in order to put your HTTP_RPC endpoint to interact with the Ethereum Node and Blockchain APIs key
 
 Once you edited, you need to install dependencies:
 

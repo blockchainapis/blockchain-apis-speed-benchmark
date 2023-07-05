@@ -1,4 +1,7 @@
 import asyncio
+import os
+
+from dotenv import load_dotenv
 
 from src.BlockchainAPIsRunner import BlockchainAPIsRunner
 from src.NodeRunner import NodeRunner
@@ -6,8 +9,12 @@ from src.utils import load_config
 
 
 async def main():
+    load_dotenv()
     config = load_config("config.yml")
-    node_runner = NodeRunner()
+    node_runner = NodeRunner(config["token-owned"],
+                             config["common"]["weth-address"],
+                             os.getenv("HTTP_RPC"),
+                             config["node-config"]["router-address"])
     blockchain_apis_runner = BlockchainAPIsRunner()
 
     time_spent_node = await node_runner.time_run()

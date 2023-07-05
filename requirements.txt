@@ -2,3 +2,4 @@ pyyaml
 web3
 blockchain-apis
 tqdm
+python-dotenv
