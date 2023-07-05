@@ -71,6 +71,9 @@ class NodeRunner(Runner):
         amount_out = self._router_caller.getAmountOut(self._token_balances[token_address], reserve_in, reserve_out)
         return amount_out, time.time() - start
 
+    def get_name(self) -> str:
+        return "blockchain"
+
     async def run(self) -> Tuple[List[str], List[int], List[int], List[float]]:
         tokens_to_do = list(self._token_balances.keys())
         with ThreadPoolExecutor() as executor:

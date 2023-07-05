@@ -40,6 +40,9 @@ class BlockchainAPIsRunner(Runner):
         duration = time.time() - start
         return amounts_out[0].amountOut, duration
 
+    def get_name(self) -> str:
+        return "BlockchainAPIs"
+
     async def run(self) -> Tuple[List[str], List[int], List[int], List[float]]:
         tasks = []
         tokens_to_do = list(self._token_balances.keys())

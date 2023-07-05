@@ -39,7 +39,7 @@ class Runner(ABC):
         to_write.append(["", "Total Amount out:", total_amount_out])
         to_write.append(["", "Average duration:", sum(duration) / len(duration)])
 
-        with open("dest_blockchain.csv", "w+") as f:
+        with open(f"result_{self.get_name()}.csv", "w+") as f:
             writer = csv.writer(f)
             writer.writerow([
                 "Token Address",
@@ -49,6 +49,14 @@ class Runner(ABC):
             ])
             writer.writerows(to_write)
             
+
+    @abstractmethod
+    def get_name(self) -> str:
+        """Get the name of the run
+
+        :return: The name of the run. For example: blockchain or BlockchainAPIs
+        :rtype: str
+        """
 
     @abstractmethod
     async def run(self) -> Tuple[List[str], List[int], List[int], List[float]]:
