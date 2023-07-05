@@ -54,8 +54,7 @@ class NodeRunner(Runner):
         # Do an RPC call to get the address of the pair
         pair_address = self._factory_caller.getPair(self._weth_address, token_address)
         if pair_address == "0x0000000000000000000000000000000000000000":
-            print(f"[WARNING] Token at address: {token_address} is not paired with WETH")
-            # raise Exception(f"Token at address: {token_address} is not paired with WETH, please remove the token and try again")
+            raise Exception(f"Token at address: {token_address} is not paired with WETH, please remove the token and try again")
         pair_caller = self._w3.eth.contract(address=pair_address, abi=_load_abi(_PAIR_ABI_PATH)).caller()
         # Get the reserves of the pair
         reserves = pair_caller.getReserves()
